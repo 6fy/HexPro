@@ -1,0 +1,69 @@
+
+@import 'index';
+
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .guess-color-box-holder {
+        width: 50%;
+        height: 100%;
+        border-right: 1px solid #000;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background-color: $secondairy-background-color;
+
+        .guess-color-box {
+            width: 200px;
+            height: 200px;
+            box-shadow: #000 4px 4px;
+            border: solid 1px #000;
+            border-radius: $box-radius;
+        }
+    }
+
+    .guess-buttons-holder {
+        width: 50%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        button {
+            background-color: $secondairy-background-color;
+            color: #fff;
+            border: 1px solid #000;
+            width: 170px;
+            height: 110px;
+            margin-bottom: 25px;
+            cursor: pointer;
+            border-radius: $box-radius;
+
+            &:hover {
+                box-shadow: #000 4px 4px;
+                background-color: $selected-background-color;
+            }
+        }
+    }
+
+    .current-guess-counter p {
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    .incorrect-answer {
+        margin-top: 10px;
+        color: red;
+        font-size: 20px;
+    }
+    .correct-answer {
+        margin-top: 10px;
+        color: green;
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,17 @@
+// Variables
+$background-color: hsl(223, calc(1 * 6.9%), 19.8%);
+$secondairy-background-color: hsl(220, calc(1 * 6.8%), 17.3%);
+
+$selected-background-color: hsl(216, calc(1 * 7.2%), 13.5%);
+$box-radius: 5px;
+
+// Global Styling
+html,
+body,
+#root {
+    height: 100%;
+    background-color: $background-color;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
