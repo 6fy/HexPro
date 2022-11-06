@@ -14,7 +14,13 @@
     <!-- Resizing -->
     <script>
       $( function() {
-        $( "#resizable" ).resizable();
+        $( "#resizable" ).resizable({
+          animate: true,
+          delay: 0,
+          animateDuration: "fast",
+          handles: "e, w",
+          minWidth: 260
+        });
       } );
     </script>
   </head>
