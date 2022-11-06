@@ -105,15 +105,13 @@
 }
 
 @media screen and (max-width: 560px) {
-    .App .guess-color-box-holder .change-amount-holder {
-        flex-direction: column;
+    .App {
+        .guess-color-box-holder .change-amount-holder {
+            flex-direction: column;
 
-        p {
-            margin: 0;
-        }
-
-        button {
-
+            p {
+                margin: 0;
+            }
         }
     }
 }
