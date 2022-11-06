@@ -17,7 +17,8 @@
         background-color: $secondairy-background-color;
 
         .guess-color-box {
-            width: 200px;
+            width: 50%;
+            max-width: 200px;
             height: 200px;
             box-shadow: #000 4px 4px;
             border: solid 1px #000;
@@ -28,7 +29,7 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            height: 25px;
+            height: 20%;
 
             p {
                 font-size: 20px;
@@ -63,12 +64,14 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+        margin: 0px 10px 0px 10px;
 
         button {
             background-color: $secondairy-background-color;
             color: #fff;
             border: 1px solid #000;
-            width: 170px;
+            width: 80%;
+            max-width: 170px;
             height: 100px;
             margin-bottom: 25px;
             cursor: pointer;
@@ -98,5 +101,19 @@
         margin-top: 10px;
         color: green;
         font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .App .guess-color-box-holder .change-amount-holder {
+        flex-direction: column;
+
+        p {
+            margin: 0;
+        }
+
+        button {
+
+        }
     }
 }

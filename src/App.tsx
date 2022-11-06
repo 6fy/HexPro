@@ -123,11 +123,11 @@ function App() {
 				}
 
 				{
-					answers.map(answer => (
+					answers.map((answer) => 
 						<button key={answer} onClick={() => checkAnswer(answer)}>
 							{answer}
 						</button>
-					))
+					)
 				}	
 
 				{ result === Result.Incorrect && 
