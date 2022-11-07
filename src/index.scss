@@ -15,3 +15,21 @@ body,
     margin: 0;
     padding: 0;
 }
+
+button {
+    background-color: $secondairy-background-color;
+    color: #fff;
+    border: 1px solid #000;
+    width: 50px;
+    height: 30px;
+    margin-bottom: 25px;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: $box-radius;
+
+    &:hover:not(.unclickable) {
+        box-shadow: #000 1px 1px;
+        background-color: $selected-background-color;
+    }
+}

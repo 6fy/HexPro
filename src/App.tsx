@@ -24,12 +24,22 @@ function App() {
 
 	const [answersAmount, setAnswersAmount] = useState<number>(3);
 
+	const [previousAnswer, setPreviousAnswer] = useState<string | null>(null);
+
 	// Functions
-	function randomColor(): string {
-		return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+	function generateRandomColor(): string {
+		let randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
+		// In any case, the color code is invalid
+		if (randomColor.length != 7) {
+			randomColor = generateRandomColor();
+		}
+
+    	return randomColor;
 	}
 
 	function checkAnswer(answer: string) {
+		setPreviousAnswer(null);
 		setIncorrectSelection(answer);
 		setGuessCount(guessCount + 1);
 		setCurrentGuessCount(currentGuessCount + 1);
@@ -46,7 +56,7 @@ function App() {
 		setCurrentGuessCount(0);
 
 		// Generate new colors
-		generateDefaultColor(false);
+		generateDefaultColor();
 	}
 
 	function changeAmount(amount: number) {
@@ -64,31 +74,46 @@ function App() {
 		}
 
 		let newList = answers;
-		newList.push(randomColor());
+		newList.push(generateRandomColor());
 		setAnswers(newList);
 	}
 
+	function newColor() {
+		setCurrentGuessCount(0);
+		setPreviousAnswer(color);
+		generateDefaultColor();
+	}
+
+	function getHint() {
+		// to do
+	}
+
 	// Automatically runs
-	function generateDefaultColor(silent: boolean) {
-		let color = randomColor();
+	function generateDefaultColor() {
+		let color = generateRandomColor();
 		setColor(color);
 
 		// Add to list
 		let colorList = [color];
 
 		for (let i = 0; i < (answersAmount - 1); i++) {
-			colorList.push(randomColor());
+			colorList.push(generateRandomColor());
 		}
 
 		// Shuffle the colorList list
 		setAnswers(colorList.sort(() => Math.random() - 0.5));
 	}
 
-	useEffect(() => { generateDefaultColor(false) }, []);
+	useEffect(() => { generateDefaultColor() }, []);
 
 	return (
 		<div className="App">
 			<div id="resizable" className="guess-color-box-holder">
+				<div className="help-buttons-holder">
+					<button onClick={() => newColor()}>New color</button>
+					<button className="unclickable">Hint</button>
+				</div>
+
 				<div className="guess-color-box" style={{ background: color }}>
 				</div>
 
@@ -128,11 +153,17 @@ function App() {
 							{answer}
 						</button>
 					)
-				}	
+				}
+
+				{previousAnswer != null &&
+					<div className="previous-answer">
+						{ previousAnswer } was the color!
+					</div> 
+				}
 
 				{ result === Result.Incorrect && 
 					<div className="incorrect-answer">
-						{ incorrectAnswer } incorrect!
+						{ incorrectAnswer } is incorrect!
 					</div> 
 				}
 				{ result === Result.Correct && 
