@@ -6,11 +6,16 @@ enum Result {
 	Incorrect
 }
 
+interface Provider {
+    color: string,
+    hide: boolean,
+}
+
 function App() {
 
 	const [color, setColor] = useState<string>("red");
 
-	const [answers, setAnswers] = useState<string[]>([]);
+	const [answers, setAnswers] = useState<Provider[]>([]);
 
 	const [result, setResult] = useState<Result | undefined>(undefined);
 
@@ -27,15 +32,20 @@ function App() {
 	const [previousAnswer, setPreviousAnswer] = useState<string | null>(null);
 
 	// Functions
-	function generateRandomColor(): string {
+	function generateRandomColor(): Provider {
 		let randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 		// In any case, the color code is invalid
 		if (randomColor.length != 7) {
-			randomColor = generateRandomColor();
+			generateRandomColor();
 		}
 
-    	return randomColor;
+		let colorObject = {
+			color: randomColor,
+			hide: false
+		}
+
+    	return colorObject;
 	}
 
 	function checkAnswer(answer: string) {
@@ -65,10 +75,18 @@ function App() {
 
 		if (old > amount) {
 			let newList = answers;
-			newList.splice(newList.indexOf(color), 1);
+			
+			newList.splice(newList.indexOf({
+				color: color,
+				hide: false
+			}), 1);
+
 			newList.splice(Math.floor(Math.random() * newList.length), 1);
 
-			newList.push(color);
+			newList.push({
+				color: color,
+				hide: false
+			});
 			setAnswers(newList);
 			return;
 		}
@@ -84,14 +102,10 @@ function App() {
 		generateDefaultColor();
 	}
 
-	function getHint() {
-		// to do
-	}
-
 	// Automatically runs
 	function generateDefaultColor() {
 		let color = generateRandomColor();
-		setColor(color);
+		setColor(color.color);
 
 		// Add to list
 		let colorList = [color];
@@ -111,7 +125,6 @@ function App() {
 			<div id="resizable" className="guess-color-box-holder">
 				<div className="help-buttons-holder">
 					<button onClick={() => newColor()}>New color</button>
-					<button className="unclickable">Hint</button>
 				</div>
 
 				<div className="guess-color-box" style={{ background: color }}>
@@ -147,12 +160,19 @@ function App() {
 					</div> 
 				}
 
+
 				{
-					answers.map((answer) => 
-						<button key={answer} onClick={() => checkAnswer(answer)}>
-							{answer}
-						</button>
-					)
+					answers.map((answer) => {
+						if (answer.hide) {
+							return <button key={answer.color} className="unclickable">
+								{answer.color} ooooo {answer.hide}
+							</button>;
+						}
+
+						return <button key={answer.color} onClick={() => checkAnswer(answer.color)}>
+							{answer.color} iiiii {answer.hide}
+						</button>;
+					})
 				}
 
 				{previousAnswer != null &&
