@@ -162,17 +162,11 @@ function App() {
 
 
 				{
-					answers.map((answer) => {
-						if (answer.hide) {
-							return <button key={answer.color} className="unclickable">
-								{answer.color} ooooo {answer.hide}
-							</button>;
-						}
-
-						return <button key={answer.color} onClick={() => checkAnswer(answer.color)}>
-							{answer.color} iiiii {answer.hide}
-						</button>;
-					})
+					answers.map((answer) =>
+						<button key={answer.color} onClick={() => checkAnswer(answer.color)}>
+							{answer.color}
+						</button>
+					)
 				}
 
 				{previousAnswer != null &&
