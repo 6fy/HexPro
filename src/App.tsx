@@ -51,8 +51,12 @@ function App() {
 	function checkAnswer(answer: string) {
 		setPreviousAnswer(null);
 		setIncorrectSelection(answer);
-		setGuessCount(guessCount + 1);
-		setCurrentGuessCount(currentGuessCount + 1);
+		setGuessCount(count => {
+			return count + 1;
+		});
+		setCurrentGuessCount(count => {
+			return count + 1;
+		});
 
 		// Incorrect answer
 		if (answer !== color) {
@@ -62,7 +66,9 @@ function App() {
 
 		// Correct answer
 		setResult(Result.Correct);
-		setCorrectGuessCount(correctCounter + 1);
+		setCorrectGuessCount(count => {
+			return count + 1;
+		});
 		setCurrentGuessCount(0);
 
 		// Generate new colors
